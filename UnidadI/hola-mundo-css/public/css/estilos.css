@@ -1,0 +1,23 @@
+p{
+    font-weight: bold; /*Texto en negrita*/
+    font-size:1.5rem;
+    color:black;
+}
+#ultimo-parrafo{
+    background-color:rgb(221, 11, 46);
+}
+.parrafo-cool{
+    border-width:1px;
+    border-color:blue;
+    border-style: solid;
+    background-color:yellow;
+    border-radius: 5px;
+}
+
+#primer-parrafo{
+    color:green;
+}
+
+.texto-rojo{
+    color:red;
+}

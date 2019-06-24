@@ -1,0 +1,34 @@
+Para aplicar CSS se definen bloques llamados reglas CSS, la estructura de una regla CSS es:
+
+
+selector{
+    propiedad1:valor1;
+    propiedad2:valor2;
+    ...
+    propiedadN:valorN;
+}
+
+Formas de incluir CSS en un html:
+
+*En Linea:
+    -Se hace mediante el atributo style en la etiqueta que se quiere aplicar los estilos. Se hace de la siguiente forma:
+    style="propiedad1:valor1;propiedad2:valor2;...;propiedadN:valorN"
+
+*En el encabezado del html
+    -Se incluye dentro de la etiqueta style ubicada dentro de la etiqueta head.
+    Las reglas se definen de la siguiente forma:
+    
+    selector{
+        propiedad1:valor1;
+        propiedad2:valor2;
+        ...
+        propiedadN:valorN;
+    }
+
+    Un selector es un identificador para seleccionar una o varias etiquetas. Los selectores disponibles son:
+    Por el nombre de la etiqueta
+    Por el id de una etiqueta: Se utiliza el prefijo numeral (#) para el selector
+    Por el nombre de clase CSS: Se utiliza el prefijo punto (.) para el selector
+
+*En archivos externos:
+    Se crean archivos con extension CSS, para incluirlos se utiliza la etiqueta link dentro de la etiqueta head.

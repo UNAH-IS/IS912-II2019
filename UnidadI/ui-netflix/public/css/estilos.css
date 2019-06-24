@@ -1,0 +1,40 @@
+#logo{
+    /*margin-top:;
+    margin-bottom:;
+    margin-left:;
+    margin-right:;*/
+    margin: 20px 0 0 45px;
+}
+
+body{
+    background-image: url(../img/fondo.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    margin:0;
+}
+
+main{
+    background-color: #000000a6;
+    height: 100vh;
+    position: absolute;
+    width: 100%;
+}
+
+#login{
+    background-color: #000000b3;
+    width: 300px;
+    color: #ffffff;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 700px;
+    padding: 50px 90px;
+}
+
+h1{
+    font-size:32px;
+    font-weight: 700;
+    /*font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;*/
+    font-family: 'Aguafina Script', cursive;
+
+}
