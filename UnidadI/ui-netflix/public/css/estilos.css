@@ -1,3 +1,7 @@
+@font-face {
+    font-family: FuenteGoticaSuperSalvaje;
+    src: url(../fonts/OldLondon.ttf);
+}
 #logo{
     /*margin-top:;
     margin-bottom:;
@@ -11,6 +15,7 @@ body{
     background-repeat: no-repeat;
     background-size:cover;
     margin:0;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
 }
 
 main{
@@ -27,14 +32,60 @@ main{
     border-radius: 5px;
     margin-left: auto;
     margin-right: auto;
-    min-height: 700px;
+    min-height: 500px;
     padding: 50px 90px;
+    transition: background-color 2s;
 }
 
-h1{
+#login h1{ /*Aplicar estilos a las etiquetas h1 que esten dentro de una etiqueta con id="login"*/
     font-size:32px;
     font-weight: 700;
-    /*font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;*/
-    font-family: 'Aguafina Script', cursive;
+    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+    /*font-family: 'Aguafina Script', cursive;*/
+    /*font-family: FuenteGoticaSuperSalvaje, Arial;*/
+    color:white;
+}
 
+#login input[type="text"],#login input[type="password"]{
+    width: 100%;
+    background-color: #252424;
+    font-size: 1.05rem;
+    border: 0;
+    border-radius: 5px;
+    padding: 16px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+#btn-login{
+    background-color: #E50914;
+    color: white;
+    border: 0;
+    width: 100%;
+    font-size: 1.05rem;
+    font-weight: bold;
+    border-radius: 7px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.texto-pequenio{
+    color: #b3b3b3;
+    font-size: 13px;
+    font-weight: 500; 
+}
+
+#need-help{
+    float: right;
+    text-decoration: none;
+}
+
+#need-help:hover{
+    text-decoration: underline;
+    /*font-size:2rem;
+    color:#E50914;*/
+}
+
+#login:hover{
+    background-color:rgba(255, 0, 0, 0.4);
 }

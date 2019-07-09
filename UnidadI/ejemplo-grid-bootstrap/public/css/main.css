@@ -1,0 +1,6 @@
+.contenido{
+    background-color:gray;
+    border:1px solid green;
+    padding:15px;
+    /*box-sizing: border-box;*/
+}

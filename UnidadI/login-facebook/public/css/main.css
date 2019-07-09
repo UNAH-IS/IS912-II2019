@@ -1,0 +1,30 @@
+body {
+    padding-top: 5rem;
+}
+.starter-template {
+    padding: 3rem 1.5rem;
+}
+
+.bg-dark{
+    background-color: #3B5998!important;
+}
+
+.navbar{
+    padding: 20px 300px 16px 300px;
+}
+
+.navbar .btn-primary{
+    background-color: #4267b2;
+    border-color: #29487d;
+    font-size:.8rem;
+    font-weight: bold;
+    padding:3px;
+    border-radius: 1px;
+}
+.navbar input[type="text"], .navbar input[type="password"]{
+    font-size: .7rem;
+}
+
+#informacion td{
+    padding:25px;
+}
