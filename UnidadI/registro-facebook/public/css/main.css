@@ -85,3 +85,10 @@ h3{
     margin-top:15px;
     border-color:rgb(60, 95, 46);
 }
+
+.input-error{
+    border-color:red;
+}
+.input-success{
+    border-color:green;
+}
