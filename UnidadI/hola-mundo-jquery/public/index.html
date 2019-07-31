@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .texto-grande{
+            font-size:2rem;
+        }
+    </style>
+</head>
+<body>
+    <input id="usuario" type="text" placeholder="Usuario" value="Juan">
+    <input id="password" type="password" placeholder="Password"><button id="ver">Ver</button>
+    <button id="login" on>
+        Login
+    </button>
+    <select id="pais"></select>
+    <div id="contenido">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, delectus.</div>
+    <button id="mostrar">Mostrar</button>
+    <button id="ocultar">Ocultar</button>
+    <script src="js/jquery.min.js"></script>
+    <script>
+         $(document).ready(function(){
+            console.log('El dom ya esta cargado');
+        });
+
+        /*document.querySelectorAll('#usuario')*/
+        //Acceso al DOM
+        //document.getElementById('usuario').value
+        $('#usuario').val("Pedro");
+        console.log($('#usuario').val());
+
+        for(let i = 0; i<5; i++)
+            $("#pais").append(`<option>Opcion ${i}</option>`); //innerHTML+=
+
+        
+        //document.getElementById("contenido").style.backgroundColor = 'black';
+        $("#contenido").css("background-color","black");
+        $("#contenido").css("color","white");
+        //document.getElementById('contenido').classList.add('texto-grande');
+        $("#contenido").addClass('texto-grande'); //removeClass
+        
+        //Gestion de eventos
+        $('#login').click(function(){
+            console.log({
+                evento: 'jQuery',
+                usuario:$('#usuario').val(),
+                password:$('#password').val()
+            });
+        });
+        
+        
+        document.getElementById('login').addEventListener('click',function(){
+            console.log({
+                evento: 'Nativo',
+                usuario:$('#usuario').val(),
+                password:$('#password').val()
+            });
+        });
+        
+        $('#ver').click(()=>{
+            if ($('#password').attr('type')=="text")
+                $('#password').attr('type','password');
+            else
+                $('#password').attr('type','text');
+        });
+        
+        //Animaciones
+        $('#ocultar').click(()=>{
+            $('#contenido').fadeOut(500); //hide
+        });
+        $('#mostrar').click(()=>{
+            $('#contenido').fadeIn(500); //show
+        });
+        //AJAX
+        //... Unida II, yA TU SABE
+    </script>
+</body>
+</html>

@@ -50,22 +50,23 @@
                 <p>It’s quick and easy.</p>
                 <div class="row" id="formulario">
                     <div class="col-lg-6 col-12">
-                        <input id="first-name" class="form-control" type="text" placeholder="First name" value="Juan">
+                        <input type="hidden" id="key">
+                        <input id="first-name" class="form-control" type="text" placeholder="First name">
                         <div class="valid-feedback">Ok</div>
                         <div class="invalid-feedback">First name is required</div>
                     </div>
                     <div class="col-lg-6 col-12">
-                        <input id="last-name" class="form-control" type="text" placeholder="Last name" value="Perez">
+                        <input id="last-name" class="form-control" type="text" placeholder="Last name">
                         <div class="valid-feedback">Ok</div>
                         <div class="invalid-feedback">Last name is required</div>
                     </div>
                     <div class="col-12">
-                        <input onkeyup="validarCorreo(this)" id="email" class="form-control" type="text" placeholder="Mobile number or email" value="jperez@gmail.com">
+                        <input onkeyup="validarCorreo(this)" id="email" class="form-control" type="text" placeholder="Mobile number or email">
                         <div class="valid-feedback">Ok</div>
                         <div class="invalid-feedback">Invalid Email</div>
                     </div>
                     <div class="col-12">
-                        <input id="password" class="form-control" type="password" placeholder="Password" value="asd.456">
+                        <input id="password" class="form-control" type="password" placeholder="Password">
                         <div class="valid-feedback">Ok</div>
                         <div class="invalid-feedback">Password is required</div>
                     </div>
@@ -96,6 +97,8 @@
                             By clicking Sign Up, you agree to our <a href="#">Terms</a>, <a href="#">Data Policy</a> and <a href="#">Cookies Policy</a>. You may receive SMS Notifications from us and can opt out any time.
                         </div>
                         <button onclick="registrarUsuario()" type="button"  id="boton-sign-in" class="btn btn-success">Sign In</button>
+                        <button style="display:none" onclick="actualizarUsuario()" type="button"  id="boton-update" class="btn btn-primary">Update</button>
+                        <button style="display:none" onclick="limpiar()" type="button"  id="boton-clear" class="btn btn-danger">Clear</button>
                         <div id="resultado" class="alert alert-success" role="alert" style="display:none;">
                             Registro guardado
                         </div>

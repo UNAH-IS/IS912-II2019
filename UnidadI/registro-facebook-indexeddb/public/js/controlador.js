@@ -66,16 +66,15 @@ let anio = new Date().getFullYear();
 for (let i=anio;i>=(anio-100); i--)
     document.getElementById('year').innerHTML += `<option value="${i}">${i}</option>`;
 
-function registrarUsuario(){
+function validarCampos(){
     for (let i = 0; i<campos.length; i++)
         campos[i].valido = validarCampoVacio(campos[i].id);
     
     console.log(campos);
     for (let i = 0; i<campos.length; i++)
         if (!campos[i].valido)
-            return
+            return;
     
-
     let genderInput = document.querySelector('input[type="radio"][name="gender"]:checked');
     
     let persona = {
@@ -90,7 +89,14 @@ function registrarUsuario(){
             year: document.getElementById('year').value
         }
     }
-    
+
+    return persona;
+}
+
+function registrarUsuario(){
+    let persona = validarCampos();
+    if (persona==null || persona == undefined)
+        return;
     //Agregar al ObjectStore de usuarios
     let transaccion = db.transaction(['usuarios'],'readwrite'); //readonly: Solo lectura, readwrite:lectura y escritura
     let objectStoreUsuarios = transaccion.objectStore('usuarios');
@@ -176,10 +182,66 @@ function eliminar(key){
 
 function editar(key){
     console.log("Editar registro "+key+", en este caso deberia obtener el JSON del LocalStorage y de sus valores llenar los input del formulario, cambiar el boton por uno que diga actualizar y sustituir el json del LocalStorage por la informacion actualizada");
+    document.getElementById('key').value=key;
     let transaccion = db.transaction(['usuarios'],'readonly');
     let objectStoreUsuarios = transaccion.objectStore('usuarios');
     let solicitud = objectStoreUsuarios.get(key);
     solicitud.onsuccess = function(evento){
         console.log(evento.target.result);
+        let persona = evento.target.result;
+        document.getElementById('first-name').value = persona.firstName;
+        document.getElementById('last-name').value = persona.lastName;
+        document.getElementById('email').value = persona.email;
+        document.getElementById('password').value = persona.password;
+        document.getElementById('month').value = persona.birthdate.month;
+        document.getElementById('day').value = persona.birthdate.day;
+        document.getElementById('year').value = persona.birthdate.year;
+
+        let opcionesGenero = document.querySelectorAll('input[type="radio"][name="gender"]');
+        for(let i=0; i<opcionesGenero.length;i++){ 
+            if (opcionesGenero[i].value == persona.gender){
+                opcionesGenero[i].checked = true;
+            }
+        }
+
+        document.getElementById('boton-update').style.display = 'block';
+        document.getElementById('boton-clear').style.display = 'block';
+        document.getElementById('boton-sign-in').style.display = 'none';
+        //console.log(opcionesGenero);
+        //persona.gender
+    }
+}
+
+function limpiar(){
+    document.getElementById('first-name').value = '';
+    document.getElementById('last-name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('month').value = '';
+    document.getElementById('day').value = '';
+    document.getElementById('year').value = '';
+
+    document.getElementById('boton-update').style.display = 'none';
+    document.getElementById('boton-clear').style.display = 'none';
+    document.getElementById('boton-sign-in').style.display = 'block';
+}
+
+function actualizarUsuario(){
+    let persona = validarCampos();
+    console.log(persona);
+    persona.codigo = parseInt(document.getElementById('key').value);
+    let transaccion = db.transaction(['usuarios'],'readwrite'); //readonly: Solo lectura, readwrite:lectura y escritura
+    let objectStoreUsuarios = transaccion.objectStore('usuarios');
+    console.log('Registro a actualziar: ' + document.getElementById('key').value);
+    let solicitud = objectStoreUsuarios.put(persona);
+    solicitud.onsuccess = function(evento){
+        console.log('Se actualizo el registro con exito');
+        console.log(evento);
+        llenarTabla();
+        limpiar();
+    }
+
+    solicitud.onerror = function(evento){
+        console.log(evento);
     }
 }
