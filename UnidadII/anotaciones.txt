@@ -1,0 +1,23 @@
+Envío de información al servidor:
+    Peticiones sincronas:
+        *Utilizar la etiqueta form con los atributos action y method
+        *Definir la URL donde se enviará la información en el atributo action
+        *Definir el método de envio en el atributo method:
+            GET: envía la información a traves de la URL en formato URLEncoded
+                http://localhost:8888/procesar
+                ?
+                usuario=jperez&
+                password=asd.456
+
+                http://dominio:puerto?parametro1=valor1&parametro2=valor2&...&parametroN=valorN
+            POST
+            PUT
+            DELETE
+        *Los componentes del formulario (ejem: input, textarea, select) deben tener el atributo name
+        *Un boton del tipo submit
+
+    Peticiones asincronas:
+
+    API REST
+
+    Create Read Update Delete

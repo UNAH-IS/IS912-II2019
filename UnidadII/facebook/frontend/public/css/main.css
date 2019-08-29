@@ -1,0 +1,94 @@
+body {
+    padding-top: 5rem;
+    background-color: #EDF0F5;
+}
+h3{
+    font-weight: bold;
+}
+.starter-template {
+    padding: 3rem 1.5rem;
+}
+
+.bg-dark{
+    background-color: #3B5998!important;
+}
+
+.navbar .btn-primary{
+    background-color: #4267b2;
+    border-color: #29487d;
+    font-size:.8rem;
+    font-weight: bold;
+    padding:3px;
+    border-radius: 1px;
+}
+.navbar input[type="text"], .navbar input[type="password"]{
+    font-size: .7rem;
+}
+
+#informacion td{
+    padding:15px;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+} 
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+} 
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+} 
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .navbar{
+        padding: 20px 70px 16px 70px;
+    }
+} 
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .navbar{
+        padding: 20px 250px 16px 250px;
+    }
+}
+
+
+#formulario input[type="text"], #formulario input[type="password"], #formulario select{
+    margin-top:5px;
+    margin-bottom:5px;
+    font-size:1.2rem;
+}
+
+.starter-template section {
+    padding-left:80px;
+    padding-right:80px;
+}
+
+#contenido-terminos{
+    font-size:.7rem;
+    color:rgb(97, 96, 96);
+    width: 80%;
+}
+
+#boton-sign-in{
+    background-image: linear-gradient(#74B55F,#598A45);
+    font-weight: bold;
+    padding-left: 45px;
+    padding-right: 45px;
+    margin-top:15px;
+    border-color:rgb(60, 95, 46);
+}
+
+.input-error{
+    border-color:red;
+}
+.input-success{
+    border-color:green;
+}

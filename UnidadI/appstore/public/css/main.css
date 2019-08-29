@@ -1,0 +1,52 @@
+body {
+    padding-top: 5rem;
+    background-color:#FBFBFB;
+    font-family: 'Exo 2', sans-serif;
+}
+.starter-template {
+    padding: 3rem 1.5rem;
+}
+.bg-dark{
+    background-color:#040707!important;
+}
+.card{
+    cursor:pointer;
+    margin-bottom: 10px;
+}
+.card-body{
+    padding:10px;
+}
+
+.card:hover{
+    background-color:#FCB119;
+    color:white;
+}
+.texto-app{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.texto-desarrollador{
+    font-size: .8rem;
+}
+
+.texto-precio{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.estrellas{
+    font-size:.6rem;
+    color:rgb(253, 200, 24);
+}
+.estrella-roja{
+    color:rgb(255, 30, 0);
+}
+
+.estrella-verde{
+    color:rgb(57, 165, 8);
+}
+
+.comentario{
+    font-size: .8rem;
+}
