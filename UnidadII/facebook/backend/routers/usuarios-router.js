@@ -1,17 +1,32 @@
 var express = require('express');
+var usuario = require('../models/usuario');
 var router = express.Router();
 
-
-var usuarios = [
-    {firstName:'Jose',lastName:'Perez',email:'Jose@gmail.com'},
-    {firstName:'Pedro',lastName:'Rodriguez',email:'Pedro@gmail.com'},
-    {firstName:'Maria',lastName:'de Jesus',email:'Maria@gmail.com'},
-    {firstName:'Jesus',lastName:'Gutierrez',email:'Jesus@gmail.com'}
-];
-
+//Guardar un usuario
 router.post('/',function(req,res){
-    res.send(req.body);
-    res.end();
+    let u = new usuario({
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
+        email:req.body.email,
+        password:req.body.password,
+        birthdate:{
+            day:req.body.day,
+            month:req.body.month,
+            year:req.body.year
+        },
+        gender:req.body.gender,
+    }); 
+
+    //Promesa
+    u.save()
+    .then(function(obj){
+        res.send(obj);
+        res.end();
+    })
+    .catch(function(error){
+        res.send(error);
+        res.end();
+    });
 });
 
 router.delete('/:id',function(req,res){
@@ -19,17 +34,30 @@ router.delete('/:id',function(req,res){
     res.end();
 });
 
+//Obtener un usuario
 router.get('/:id',function(req,res){
-    if (req.params.id >(usuarios.length-1))
-        res.send({mensaje:'No existe el usuario'});    
-    else
-        res.send(usuarios[req.params.id]);
-    res.end();
+    usuario.find({_id:req.params.id})
+    .then((data)=>{
+        res.send(data);
+        res.end();
+    })
+    .catch((error)=>{
+        res.send(error);
+        res.end();
+    });
 });
 
+//Obtener todos los usuarios
 router.get('/',function(req,res){
-    res.send(usuarios);
-    res.end();
+    usuario.find()
+    .then((data)=>{
+        res.send(data);
+        res.end();
+    })
+    .catch((error)=>{
+        res.send(error);
+        res.end();
+    });
 });
 
 router.put('/:id',function(req,res){
