@@ -1,47 +1,7 @@
-/*
-Modelo: Logica de negocio y los datos (BD, Backend)
-Vista: Lo que el usuario ve UI (HTML, CSS)
-Controlador: Controlar y responder las acciones del usuario (Javascript)
-
-Angular, VueJS, React
-NodeJS, Express, Gestor de vistas EJS, Pug(Jade)
-*/
-var db;
-
-(()=>{
-    if (!('indexedDB' in window)) 
-        console.log('Este navegador no soporta indexedDB');
-    
-        //Si la base de datos no existe la crea, sino solo la abre.
-        let solicitud = window.indexedDB.open('facebook',1);  //Asincrona
-        
-        solicitud.onsuccess = function(evento){
-            console.log("Se creó o abrió la BD");
-            db = solicitud.result;
-            llenarTabla();
-        }
-
-        solicitud.onerror = function(evento){
-            console.log(evento);
-        }
-
-        //Se ejecuta cuando se crea o se necesita actualizar la BD
-        solicitud.onupgradeneeded = function(evento){
-            //En este punto si se podria crear las colecciones
-            console.log('Se creo o actualizó la BD');
-            let db = evento.target.result;
-            //Las colecciones en IndexedDB se les llama ObjectStores
-            let objectStoreUsuarios = db.createObjectStore('usuarios',{keyPath:'codigo', autoIncrement:true});
-            objectStoreUsuarios.transaction.oncomplete = function(evento){
-                console.log('Se creo el object store de usuarios');
-            }
-
-            objectStoreUsuarios.transaction.onerror = function(evento){
-                console.log(evento);
-            }
-        }
-        
-})();
+$(document).ready(function(){
+    //Ya cargó el DOM
+    llenarTabla();
+});
 
 var campos = [
     {id:'first-name', valido:false},
@@ -97,23 +57,10 @@ function registrarUsuario(){
     let persona = validarCampos();
     if (persona==null || persona == undefined)
         return;
-    //Agregar al ObjectStore de usuarios
-    let transaccion = db.transaction(['usuarios'],'readwrite'); //readonly: Solo lectura, readwrite:lectura y escritura
-    let objectStoreUsuarios = transaccion.objectStore('usuarios');
-    let solicitud = objectStoreUsuarios.add(persona);
-    solicitud.onsuccess = function(evento){
-        console.log('Se agrego el registro con exito');
-        console.log(evento);
-        anexarFilaTabla(persona, evento.target.result);
-        document.getElementById('resultado').style.display = "block";
-    }
+    
 
-    solicitud.onerror = function(evento){
-        console.log(evento);
-    }
+    //Guardar en el servidor
 }
-
-
 
 function validarCampoVacio(id){
     let resultado = (document.getElementById(id).value=="")?false:true;
@@ -121,7 +68,6 @@ function validarCampoVacio(id){
     return resultado; 
     
 }
-
 
 function validarCorreo(correo) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -143,20 +89,22 @@ function marcarInput(id, valido){
 
 function llenarTabla(){
     document.getElementById('tabla-registros').innerHTML = '';
-    let transaccion = db.transaction(['usuarios'],'readonly');
-    let objectStoreUsuarios = transaccion.objectStore('usuarios');
-    let cursor = objectStoreUsuarios.openCursor();
-    cursor.onsuccess = function(evento){
-        //Se ejecuta por cada registro en el objectstore
-        if (evento.target.result){
-            console.log(evento.target.result);
-            anexarFilaTabla(evento.target.result.value, evento.target.result.key);
-            evento.target.result.continue(); //Mover el cursor a la siguiente direccion de memoria
+    $.ajax({
+        url:'http://localhost:8888/usuarios/',
+        method:'GET',
+        dataType:'json',
+        success:(res)=>{
+            console.log('Success');
+            console.log(res);
+        },
+        error:(error)=>{
+            console.log('Error');
+            console.error(error);
         }
-    }
+    });
 }
 
-function anexarFilaTabla(persona, keyPath){
+function anexarFilaTabla(persona, id){
     document.getElementById('tabla-registros').innerHTML += 
                     `<tr>
                         <td>${persona.firstName}</td>
@@ -165,31 +113,21 @@ function anexarFilaTabla(persona, keyPath){
                         <td>${persona.gender}</td>
                         <td>${persona.password}</td>
                         <td>${persona.birthdate.day}/${persona.birthdate.month}/${persona.birthdate.year}</td>
-                        <td><button type="button" onclick="eliminar(${keyPath})"><i class="fas fa-trash-alt"></i></button></td>
-                        <td><button type="button" onclick="editar(${keyPath})"><i class="fas fa-edit"></i></button></td>
+                        <td><button type="button" onclick="eliminar(${id})"><i class="fas fa-trash-alt"></i></button></td>
+                        <td><button type="button" onclick="editar(${id})"><i class="fas fa-edit"></i></button></td>
                     </tr>`;
 }
 
-function eliminar(key){
-    let transaccion = db.transaction(['usuarios'],'readwrite');
-    let objectStoreUsuarios = transaccion.objectStore('usuarios');
-    let solicitud = objectStoreUsuarios.delete(key);
-    solicitud.onsuccess = function(){
-        console.log('Se elimino el registro');
-        llenarTabla();
-    }    
+function eliminar(id){
+    
 }
 
-function editar(key){
+function editar(id){
     console.log("Editar registro "+key+", en este caso deberia obtener el JSON del LocalStorage y de sus valores llenar los input del formulario, cambiar el boton por uno que diga actualizar y sustituir el json del LocalStorage por la informacion actualizada");
     document.getElementById('key').value=key;
-    let transaccion = db.transaction(['usuarios'],'readonly');
-    let objectStoreUsuarios = transaccion.objectStore('usuarios');
-    let solicitud = objectStoreUsuarios.get(key);
-    solicitud.onsuccess = function(evento){
-        console.log(evento.target.result);
-        let persona = evento.target.result;
-        document.getElementById('first-name').value = persona.firstName;
+    
+    
+    /*    document.getElementById('first-name').value = persona.firstName;
         document.getElementById('last-name').value = persona.lastName;
         document.getElementById('email').value = persona.email;
         document.getElementById('password').value = persona.password;
@@ -207,9 +145,8 @@ function editar(key){
         document.getElementById('boton-update').style.display = 'block';
         document.getElementById('boton-clear').style.display = 'block';
         document.getElementById('boton-sign-in').style.display = 'none';
-        //console.log(opcionesGenero);
-        //persona.gender
-    }
+        */
+    
 }
 
 function limpiar(){
@@ -229,19 +166,5 @@ function limpiar(){
 function actualizarUsuario(){
     let persona = validarCampos();
     console.log(persona);
-    persona.codigo = parseInt(document.getElementById('key').value);
-    let transaccion = db.transaction(['usuarios'],'readwrite'); //readonly: Solo lectura, readwrite:lectura y escritura
-    let objectStoreUsuarios = transaccion.objectStore('usuarios');
-    console.log('Registro a actualziar: ' + document.getElementById('key').value);
-    let solicitud = objectStoreUsuarios.put(persona);
-    solicitud.onsuccess = function(evento){
-        console.log('Se actualizo el registro con exito');
-        console.log(evento);
-        llenarTabla();
-        limpiar();
-    }
-
-    solicitud.onerror = function(evento){
-        console.log(evento);
-    }
+    
 }

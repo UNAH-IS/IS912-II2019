@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors'); //Para gestionar politicas de dominios cruzados
 var bodyParser = require('body-parser');
 var testModule = require('./modules/test-module');
 var usuariosRouter = require('./routers/usuarios-router');
@@ -7,6 +8,7 @@ var database = require('./modules/database');
 
 var app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use('/usuarios',usuariosRouter);

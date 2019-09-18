@@ -14,7 +14,7 @@ router.post('/',function(req,res){
             month:req.body.month,
             year:req.body.year
         },
-        gender:req.body.gender,
+        gender:req.body.gender
     }); 
 
     //Promesa
@@ -29,9 +29,17 @@ router.post('/',function(req,res){
     });
 });
 
+//Eliminar un usuario
 router.delete('/:id',function(req,res){
-    res.send({mensaje:`Se eliminó el usuario con codigo ${req.params.id}`});
-    res.end();
+    usuario.remove({_id:req.params.id})
+    .then((result)=>{
+        res.send(result);
+        res.end();
+    })
+    .catch((error)=>{
+        res.send(error);
+        res.end();
+    });
 });
 
 //Obtener un usuario
@@ -61,9 +69,29 @@ router.get('/',function(req,res){
 });
 
 router.put('/:id',function(req,res){
-    usuarios[req.params.id] = req.body;
-    res.send({mensaje:`Se actualizo el usuario con codigo ${req.params.id}`,usuarioActualizado:usuarios[req.params.id]});
-    res.end();
+   usuario.update(
+       {_id:req.params.id},
+       {
+            firstName:req.body.firstName,
+            lastName:req.body.lastName,
+            email:req.body.email,
+            password:req.body.password,
+            birthdate:{
+                day:req.body.day,
+                month:req.body.month,
+                year:req.body.year
+            },
+            gender:req.body.gender
+        }
+   )
+   .then((result)=>{
+        res.send(result);
+        res.end();
+   })
+   .catch((error)=>{
+        res.send(error);
+        res.end();
+   });
 });
 
 module.exports = router;
