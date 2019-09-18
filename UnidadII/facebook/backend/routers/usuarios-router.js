@@ -46,7 +46,7 @@ router.delete('/:id',function(req,res){
 router.get('/:id',function(req,res){
     usuario.find({_id:req.params.id})
     .then((data)=>{
-        res.send(data);
+        res.send(data[0]);//Se le pone 0 para que solo envie un json y no un arreglo con un json
         res.end();
     })
     .catch((error)=>{
