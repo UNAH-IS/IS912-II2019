@@ -136,6 +136,19 @@ function anexarFilaTabla(persona){
                     </tr>`;
 }
 
+function actualizarFilaTabla(persona){
+    //Seleccionar el tr del elemento seleccionado
+    document.getElementById(document.getElementById('_id').value).innerHTML = 
+                    `<td>${persona.firstName}</td>
+                        <td>${persona.lastName}</td>
+                        <td>${persona.email}</td>
+                        <td>${persona.gender}</td>
+                        <td>${persona.password}</td>
+                        <td>${persona.birthdate.day}/${persona.birthdate.month}/${persona.birthdate.year}</td>
+                        <td><button type="button" onclick="eliminar('${persona._id}')"><i class="fas fa-trash-alt"></i></button></td>
+                        <td><button type="button" onclick="editar('${persona._id}')"><i class="fas fa-edit"></i></button></td>`;
+}
+
 function eliminar(id){
     $.ajax({
         url:`http://localhost:8888/usuarios/${id}`,
@@ -217,6 +230,7 @@ function actualizarUsuario(){
             console.log(res);
             /*if (res._id != undefined)
                 anexarFilaTabla(res);*/
+            actualizarFilaTabla(persona);
         },
         error:(error)=>{
             console.error(error);
