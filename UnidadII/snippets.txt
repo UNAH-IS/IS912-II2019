@@ -1,0 +1,49 @@
+///AJAX 
+$.ajax({
+    url:'',
+    method:'',
+    data:'',
+    dataType:'json',
+    success:(res)=>{
+        console.log(res);
+    },
+    error:(error)=>{
+        console.error(error);
+    }
+});
+
+
+
+///ROUTER
+var express = require('express');
+var router = express.Router();
+var modelo = require('../models/modelo');
+var mongoose = require('mongoose');
+router.get('/',function(req,res){
+    
+});
+module.exports = router;
+
+
+///MODEL
+var mongoose = require('mongoose');
+
+var esquema = new mongoose.Schema({    
+        atributo:tipo //ObjectId,String, Number, Array, Boolean, Buffer, Date, Mixed (Otro JSON o algun tipo de dato flexible)
+});
+
+module.exports = mongoose.model('coleccion',esquema);
+
+
+///PROMISE
+
+.then((data)=>{
+    res.send(data);
+    res.end();
+})
+.catch((error)=>{
+    res.send(error);
+    res.end();
+});
+
+

@@ -113,3 +113,95 @@ db.usuarios.aggregate([
         }
     }
 ]).pretty();
+
+
+
+//Visualizar solo los elementos de un arreglo dependiendo del filtro indicado
+db.getCollection("usuarios").find(
+    {
+        _id:ObjectId('5cbf4f6961da22954ca0de97'),
+        "posts._id":ObjectId('5cc3bfc38271d416b816e712')
+    },
+    {
+        _id:true,
+        "posts.$":true
+    });
+    
+
+//Insertar un nuevo elemento en un item de un arreglo en especifico.
+db.usuarios.update(
+    {
+        _id:ObjectId('5cbf4f6961da22954ca0de97'),
+        "posts._id":ObjectId('5cc3bfc38271d416b816e712')
+    },
+    {
+        $push:{
+            "posts.$.comentarios":{
+                _id:ObjectId(),
+                usuario:{_id:ObjectId('5cc48c06ea6a420aa7e451b1'),nombre:'Bulma'},
+                comentario:'Nuevo comentario'
+            }
+        }
+    }
+);
+
+//Filtrar un elemento de un arreglo
+db.usuarios.find(
+	{
+	    _id:ObjectId('5cbf4f6961da22954ca0de97'),
+	    "posts._id":ObjectId('5cc3bfc38271d416b816e712')
+	},
+	{
+	   	_id:true,
+	   	nombre:true,
+	   	"posts.$":true
+	}
+);
+
+//Agregar un elemento dentro de un arreglo que esta dentro de otro arreglo
+db.usuarios.update(
+	{
+	    _id:ObjectId('5cbf4f6961da22954ca0de97'),
+	    "posts._id":ObjectId('5cc3bfc38271d416b816e712')
+	},
+	{
+		$push:{
+			"posts.$.comentarios":{
+				_id:ObjectId(),
+				usuario:{_id:ObjectId('5cbf4f6961da22954ca0de9d'),nombre:'Bulma'},
+				comentario:'Nuevo comentario desde Studio3T'
+			}
+		}
+	}
+);
+
+
+db.usuarios.update(
+	{
+	    _id:ObjectId('5cbf4f6961da22954ca0de97'),
+	    "posts._id":ObjectId('5cc3bfc38271d416b816e712')
+	},
+	{
+		$push:{
+			"posts.$.likes":ObjectId('5cbf4f6961da22954ca0de9d')
+		}
+	}
+);
+
+
+db.usuarios.update(
+	{
+	    _id:ObjectId('5cbf4f6961da22954ca0de97')
+	},
+	{
+		$push:{
+			posts:{
+			    _id:ObjectId(),
+			    contenidoPost:'Nuevo post desde Studio 3T',
+			    urlImagen:'img/posts/3.jpg',
+			    likes:[],
+			    comentarios:[]
+			}
+		}
+	}
+);
